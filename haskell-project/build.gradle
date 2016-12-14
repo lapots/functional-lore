@@ -1,1 +1,52 @@
 apply plugin: 'haskell'
+apply plugin: 'de.undercouch.download'
+
+import de.undercouch.gradle.tasks.download.Download
+
+def rootDir = project(":").projectDir
+
+task downloadGHC(type: Download) {
+    src "$ghcDownloadLink"
+    dest new File("$rootDir/applications/install", "ghc-8.0.1-x86_64-unknown-mingw32.tar.xz")
+    onlyIfNewer true
+}
+
+// issue with tar.xz extension
+task unpackGHC(dependsOn: downloadGHC, type: Copy) {
+    from tarTree(resources.gzip(downloadGHC.dest))
+    into "$rootDir/applications/ghc"
+}
+
+task removeGHC << {
+    file("$rootDir/applications/ghc").deleteDir()
+}
+
+// issue with SSL
+task downloadCabal(type: Download) {
+    src "$cabalDownloadLink"
+    dest new File("$rootDir/applications/install", "cabal-install-1.24.0.0-x86_64-unknown-mingw32.zip")
+    onlyIfNewer true
+}
+
+task unpackCabal(dependsOn: downloadCabal, type: Copy) {
+    from zipTree(downloadCabal.dest)
+    into "$rootDir/applications/cabal"
+}
+
+task removeCabal << {
+    file("$rootDir/applications/cabal").deleteDir()
+}
+
+task cleanupInstall << {
+    file("$rootDir/applications/install").deleteDir()
+}
+
+haskell {
+    envConfigurer { envMap ->
+        envMap.put("PATH", [
+                "$rootDir/applications/ghc/bin",
+                "$rootDir/applications/cabal/bin",
+                envMap.get("PATH")
+        ].join(":"))
+    }
+}
