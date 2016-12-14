@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath "clojuresque:clojuresque-base:$clojuresqueVersion"
+        classpath "com.prezi.haskell:gradle-haskell-plugin:$haskellPluginVersion"
     }
 
     repositories {
