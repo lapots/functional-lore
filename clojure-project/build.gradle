@@ -1,0 +1,14 @@
+apply plugin: 'clojure-min'
+
+clojure {
+    aotCompile = true
+    warnOnReflection = true
+}
+
+repositories {
+    clojarsRepo()
+}
+
+dependencies {
+    compile "org.clojure:clojure:$clojureVersion"
+}

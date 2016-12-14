@@ -1,0 +1,21 @@
+buildscript {
+    dependencies {
+        classpath "clojuresque:clojuresque-base:$clojuresqueVersion"
+    }
+
+    repositories {
+        jcenter()
+        maven { url 'http://clojars.org/repo' }
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    group='com.lapots.functional.sandbox'
+}
