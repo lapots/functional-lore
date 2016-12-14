@@ -17,5 +17,5 @@ allprojects {
         jcenter()
     }
 
-    group='com.lapots.functional.sandbox'
+    group='com.lapots.functional'
 }

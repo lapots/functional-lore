@@ -12,3 +12,8 @@ repositories {
 dependencies {
     compile "org.clojure:clojure:$clojureVersion"
 }
+
+task runClojure(dependsOn: classes, type: JavaExec) {
+    main = 'com.lapots.functional.clojure.script'
+    classpath = sourceSets.main.runtimeClasspath
+}
