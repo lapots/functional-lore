@@ -2,39 +2,46 @@ apply plugin: 'haskell'
 apply plugin: 'de.undercouch.download'
 
 import de.undercouch.gradle.tasks.download.Download
-import org.tukaani.xz.XZInputStream
-import org.apache.commons.io.IOUtils
+import org.apache.commons.io.*
+import org.apache.commons.compress.compressors.xz.XZCompressorInputStream
 
-def rootDir = project(":").projectDir
+def currentProject() {
+    project(':').projectDir
+}
+
+def xzSupport(path, file) {
+    def unpackXzFile = file - ".xz"
+    println "Path to unpacked tar: $unpackXzFile"
+    new File(path, file).withInputStream { stream ->
+        new File(path, unpackXzFile).withOutputStream { outputStream ->
+            def xzInput = new XZCompressorInputStream(new BufferedInputStream(stream))
+
+            IOUtils.copy(xzInput, outputStream)
+        }
+    }
+    return "$path\\$unpackXzFile"
+}
 
 task downloadGHC(type: Download) {
     src "$ghcDownloadLink"
-    dest new File("$rootDir/applications/install", "ghc-8.0.1-x86_64-unknown-mingw32.tar.xz")
+    dest new File("${ currentProject() }\$installationPath", "$ghcPackageName")
     onlyIfNewer true
 }
 
 // issue with tar.xz extension
-task unpackGHC(dependsOn: downloadGHC) << {
-    from tarTree({
-        def initialStream = new XZInputStream(new FileInputStream(downloadGHC.dest))
-        byte[] buffer = new byte[initialStream.available()]
-        initialStream.read(buffer)
-
-        def outputStream = new ByteArrayOutputStream()
-        IOUtils.copy(initialStream, outputStream)
-        return outputStream
-    })
-    into "$rootDir/applications/ghc"
+task unpackGHC(dependsOn: downloadGHC, type: Copy) << {
+    from tarTree(xzSupport("${ currentProject() }\$installationPath", "$ghcPackageName"))
+    into "${ evaluate("$applicationPath") }"
 }
 
 task removeGHC << {
-    file("$rootDir/applications/ghc").deleteDir()
+    file("${ currentProject() }/applications/ghc").deleteDir()
 }
 
 // issue with SSL
 task downloadCabal(type: Download) {
     src "$cabalDownloadLink"
-    dest new File("$rootDir/applications/install", "cabal-install-1.24.0.0-x86_64-unknown-mingw32.zip")
+    dest new File("${ currentProject() }/applications/install", "cabal-install-1.24.0.0-x86_64-unknown-mingw32.zip")
     onlyIfNewer true
 }
 
