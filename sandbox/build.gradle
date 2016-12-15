@@ -1,0 +1,14 @@
+apply plugin: 'groovy'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+}
+
+task runGroovy(dependsOn: classes, type: JavaExec) {
+    main = 'com.lapots.functional.sandbox.script'
+    classpath = sourceSets.main.runtimeClasspath
+}

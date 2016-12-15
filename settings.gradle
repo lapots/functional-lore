@@ -1,1 +1,1 @@
-include 'clojure-project', 'haskell-project', 'lisp-project'
+include 'clojure-project', 'haskell-project', 'lisp-project', 'sandbox'
