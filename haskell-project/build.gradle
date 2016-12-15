@@ -2,6 +2,8 @@ apply plugin: 'haskell'
 apply plugin: 'de.undercouch.download'
 
 import de.undercouch.gradle.tasks.download.Download
+import org.tukaani.xz.XZInputStream
+import org.apache.commons.io.IOUtils
 
 def rootDir = project(":").projectDir
 
@@ -12,8 +14,16 @@ task downloadGHC(type: Download) {
 }
 
 // issue with tar.xz extension
-task unpackGHC(dependsOn: downloadGHC, type: Copy) {
-    from tarTree(resources.gzip(downloadGHC.dest))
+task unpackGHC(dependsOn: downloadGHC) << {
+    from tarTree({
+        def initialStream = new XZInputStream(new FileInputStream(downloadGHC.dest))
+        byte[] buffer = new byte[initialStream.available()]
+        initialStream.read(buffer)
+
+        def outputStream = new ByteArrayOutputStream()
+        IOUtils.copy(initialStream, outputStream)
+        return outputStream
+    })
     into "$rootDir/applications/ghc"
 }
 

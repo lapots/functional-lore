@@ -4,6 +4,8 @@ buildscript {
         classpath "com.prezi.haskell:gradle-haskell-plugin:$haskellPluginVersion"
         classpath "org.apache.httpcomponents:httpclient:$apacheHttpClientVersion"
         classpath "de.undercouch:gradle-download-task:$downloadPluginVersion"
+        classpath "org.tukaani:xz:$xzLibraryVersion"
+        classpath 'commons-io:commons-io:2.5'
     }
 
     repositories {
