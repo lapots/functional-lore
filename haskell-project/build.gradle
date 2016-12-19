@@ -47,15 +47,15 @@ task downloadCabal(type: Download) {
 
 task unpackCabal(dependsOn: downloadCabal, type: Copy) {
     from zipTree(downloadCabal.dest)
-    into "$rootDir/applications/cabal"
+    into "${ currentProject() }/applications/cabal"
 }
 
 task removeCabal << {
-    file("$rootDir/applications/cabal").deleteDir()
+    file("${ currentProject() }/applications/cabal").deleteDir()
 }
 
 task cleanupInstall << {
-    file("$rootDir/applications/install").deleteDir()
+    file("${ currentProject() }/applications/install").deleteDir()
 }
 
 haskell {
