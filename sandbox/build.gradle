@@ -1,8 +1,17 @@
 apply plugin: 'groovy'
 
+apply plugin: 'appenv'
+
 repositories {
     jcenter()
     mavenCentral()
+}
+
+app {
+    env {
+        srcLink ""
+        downloadPath ""
+    }
 }
 
 dependencies {
@@ -16,3 +25,4 @@ task runGroovy(dependsOn: classes, type: JavaExec) {
     main = 'com.lapots.functional.sandbox.script'
     classpath = sourceSets.main.runtimeClasspath
 }
+

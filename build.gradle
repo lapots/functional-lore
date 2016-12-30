@@ -1,5 +1,6 @@
 buildscript {
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         classpath "clojuresque:clojuresque-base:$clojuresqueVersion"
         classpath "com.prezi.haskell:gradle-haskell-plugin:$haskellPluginVersion"
         classpath "org.apache.httpcomponents:httpclient:$apacheHttpClientVersion"
@@ -7,11 +8,14 @@ buildscript {
         classpath "org.tukaani:xz:$xzLibraryVersion"
         classpath "commons-io:commons-io:$commonsIoVersion"
         classpath "org.apache.commons:commons-compress:$commonsCompressVersion"
+        classpath "com.lapots.gradle.plugins.appenv:gradle-app-environment-plugin:0.1"
     }
 
     repositories {
         jcenter()
         maven { url 'http://clojars.org/repo' }
+        flatDir { dirs '.' }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-dev/" }
     }
 }
 
