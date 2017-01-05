@@ -1,5 +1,4 @@
 apply plugin: 'groovy'
-
 apply plugin: 'appenv'
 
 repositories {
@@ -7,10 +6,13 @@ repositories {
     mavenCentral()
 }
 
+
 app {
     srcLink "http://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-unknown-mingw32.tar.xz"
     downloadPath project(':').projectDir.absolutePath + "\\applications\\plugin"
+    installPath ""
 }
+
 
 dependencies {
     compile "org.codehaus.groovy:groovy-all:$groovyVersion"

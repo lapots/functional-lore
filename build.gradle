@@ -9,6 +9,7 @@ buildscript {
         classpath "commons-io:commons-io:$commonsIoVersion"
         classpath "org.apache.commons:commons-compress:$commonsCompressVersion"
         classpath "com.lapots.gradle.plugins.appenv:gradle-app-environment-plugin:0.1"
+        classpath "io.github.microutils:kotlin-logging:$kotlinLogginVersion"
     }
 
     repositories {
