@@ -8,8 +8,9 @@ buildscript {
         classpath "org.tukaani:xz:$xzLibraryVersion"
         classpath "commons-io:commons-io:$commonsIoVersion"
         classpath "org.apache.commons:commons-compress:$commonsCompressVersion"
-        classpath "com.lapots.gradle.plugins.appenv:gradle-app-environment-plugin:0.1"
+        classpath "com.lapots.gradle.plugins.appenv:gradle-app-environment-plugin:0.3"
         classpath "io.github.microutils:kotlin-logging:$kotlinLogginVersion"
+        classpath "org.apache.commons:commons-exec:$commonsExecVersion"
     }
 
     repositories {

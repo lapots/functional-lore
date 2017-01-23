@@ -1,18 +1,28 @@
 apply plugin: 'groovy'
 apply plugin: 'appenv'
 
+import com.lapots.gradle.plugins.appenv.DownloadTask
+
 repositories {
     jcenter()
     mavenCentral()
 }
 
+env {
+    app {
+        installationId { installationId = "ghc-haskell" }
+        srcLink { "http://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-unknown-mingw32.tar.xz" }
+        downloadPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+        installPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+    }
 
-app {
-    srcLink "http://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-unknown-mingw32.tar.xz"
-    downloadPath project(':').projectDir.absolutePath + "\\applications\\plugin"
-    installPath ""
+    app {
+        installationId { "mongo-db" }
+        srcLink { "https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.4.1-signed.msi" }
+        downloadPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+        installPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+    }
 }
-
 
 dependencies {
     compile "org.codehaus.groovy:groovy-all:$groovyVersion"
