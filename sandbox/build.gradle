@@ -8,19 +8,21 @@ repositories {
     mavenCentral()
 }
 
+def projectPath = project(':').projectDir.absolutePath
+
 env {
-    app {
-        installationId { installationId = "ghc-haskell" }
-        srcLink { "http://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-unknown-mingw32.tar.xz" }
-        downloadPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
-        installPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+    app ("ghc-haskell1") {
+        installationId = "ghc-haskell"
+        srcLink = "http://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-unknown-mingw32.tar.xz"
+        downloadPath = "$projectPath\\applications\\plugin"
+        installPath = "$projectPath\\applications\\plugin"
     }
 
-    app {
-        installationId { "mongo-db" }
-        srcLink { "https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.4.1-signed.msi" }
-        downloadPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
-        installPath { project(':').projectDir.absolutePath + "\\applications\\plugin" }
+    app ("mongo-db") {
+        installationId = "mongo-db"
+        srcLink = "https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.4.1-signed.msi"
+        downloadPath = "$projectPath\\applications\\plugin"
+        installPath = "$projectPath\\applications\\plugin"
     }
 }
 

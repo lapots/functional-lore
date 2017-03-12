@@ -1,0 +1,17 @@
+apply plugin: 'scala'
+
+dependencies {
+    compile "org.scala-lang:scala-compiler:$scalaCompilerVersion"
+    compile "org.scala-lang:scala-library:$scalaLibraryVersion"
+    compile "org.scala-lang:scala-reflect:$scalaReflectVersion"
+}
+
+ScalaCompileOptions.metaClass.daemonServer = true
+ScalaCompileOptions.metaClass.fork = true
+ScalaCompileOptions.metaClass.useAnt = false
+ScalaCompileOptions.metaClass.useCompileDaemon = false
+
+task runScala(type: JavaExec) {
+    main = 'com.lapots.functional.scala.script'
+    classpath = sourceSets.main.runtimeClasspath
+}
