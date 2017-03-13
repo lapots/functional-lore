@@ -13,7 +13,12 @@ dependencies {
     compile "org.clojure:clojure:$clojureVersion"
 }
 
-task runClojure(dependsOn: classes, type: JavaExec) {
+task runClojureFin(dependsOn: classes, type: JavaExec) {
+    main = 'com.lapots.functional.clojure.edgar.core'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runClojureAnt(dependsOn: classes, type: JavaExec) {
     main = 'com.lapots.functional.clojure.script'
     classpath = sourceSets.main.runtimeClasspath
 }
