@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     compile "org.clojure:clojure:$clojureVersion"
+    compile "clj-time:clj-time:0.13.0"
 }
 
 task runClojureFin(dependsOn: classes, type: JavaExec) {
