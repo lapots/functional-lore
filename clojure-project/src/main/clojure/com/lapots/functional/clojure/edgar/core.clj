@@ -11,12 +11,12 @@
             (+ (rand (- upper lower))
                 lower))))
 
-(defn stochastic-k [last-price low-pirce high-price]
+(defn stochastic-k [last-price low-price high-price]
     (let [hlrange (- high-price low-price)
           hlmidpoint (/ hlrange 2)
           numerator (if (> last-price hlmidpoint)
                        (- last-price hlmidpoint)
-                       (- hlmidpoinrt low-price))]
+                       (- hlmidpoint low-price))]
         (/ numerator hlrange)))
 
 (defn break-local-minima-maxima [k]
@@ -26,7 +26,7 @@
         (if (>= k 1)
           (- k 0.15) k)))
 
-(def generate-prices
+(defn generate-prices
     ([low high]
         (generate-prices (random-in-range low high)))
     ([last-price]
@@ -39,7 +39,7 @@
                                 (+ 1 (break-local-minima-maxima k))
                                 (- 1 (break-local-minima-maxima k)))
                           newprice (* kPM last)
-                          newlow (if (< newpirce low) newprice low)
+                          newlow (if (< newprice low) newprice low)
                           newhigh (if (> newprice high) newprice high)]
                     {:last newprice}))
                   {:last last-price})))

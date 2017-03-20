@@ -23,3 +23,8 @@ task runClojureAnt(dependsOn: classes, type: JavaExec) {
     main = 'com.lapots.functional.clojure.script'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task runClojureTrn(dependsOn: classes, type: JavaExec) {
+    main = 'com.lapots.functional.clojure.transact'
+    classpath = sourceSets.main.runtimeClasspath
+}
