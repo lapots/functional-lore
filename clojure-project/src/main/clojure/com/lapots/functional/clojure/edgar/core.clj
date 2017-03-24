@@ -54,4 +54,6 @@
              (map (fn [x] (merge (first x) (second x)))))))
 
 (defn -main [& args]
-    (println (map :last (take 40 (generate-prices 5 15)))))
+    (def pricelist (generate-prices 5 15))
+    (def result (take 40 (generate-timeseries pricelist)))
+    (println result))
